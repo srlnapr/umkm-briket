@@ -621,7 +621,7 @@ export default function FclCalculator({ onTransferSpec }: FclCalculatorProps) {
                     {calculation.tonnage.toFixed(1)} MT
                   </span>
                   <span className="text-[11px] font-body-sm text-outline mt-0.5">
-                    {(calculation.tonnage * 1000).toLocaleString()} Kilograms Net
+                    {Math.round(calculation.tonnage * 1000).toLocaleString("en-US")} Kilograms Net
                   </span>
                 </div>
                 <div className="p-space-sm bg-surface-container rounded-xl border border-outline-variant/20 flex flex-col">
@@ -629,7 +629,7 @@ export default function FclCalculator({ onTransferSpec }: FclCalculatorProps) {
                     Master Cartons
                   </span>
                   <span className="font-metric-tabular text-metric-tabular text-on-surface">
-                    {calculation.totalCartons.toLocaleString()} Box
+                    {calculation.totalCartons.toLocaleString("en-US")} Box
                   </span>
                   <span className="text-[11px] font-body-sm text-secondary mt-0.5">
                     {calculation.innerPacksText}

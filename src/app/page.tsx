@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-surface text-on-surface">
       <Header />
-      <main className="w-full pt-20 bg-surface min-h-[calc(100vh-20rem)]">
+      <main className="w-full pt-16 sm:pt-20 md:pt-24 bg-surface min-h-[calc(100vh-20rem)]">
         <HeroSection />
         <FactoryCapacity />
         <ProductSpecs />
