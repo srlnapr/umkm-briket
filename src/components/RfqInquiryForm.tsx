@@ -12,12 +12,14 @@ interface RfqInquiryFormProps {
 export default function RfqInquiryForm({ specData }: RfqInquiryFormProps) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [destination, setDestination] = useState("");
   const [productGrade, setProductGrade] = useState("shisha-cube-25");
   const [volume, setVolume] = useState("20ft");
   const [packaging, setPackaging] = useState("1kg-oem");
   const [incoterm, setIncoterm] = useState("CIF");
   const [notes, setNotes] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [isHighlighted, setIsHighlighted] = useState(false);
 
@@ -45,9 +47,32 @@ export default function RfqInquiryForm({ specData }: RfqInquiryFormProps) {
     return () => clearTimeout(t);
   }, [specData]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fullName,
+          email,
+          whatsapp: whatsapp || "+62 811-0000-0000",
+          destination,
+          productGrade,
+          volume,
+          packaging,
+          incoterm,
+          message: notes || "Permintaan penawaran harga briket arang batok kelapa.",
+        }),
+      });
+    } catch (err) {
+      console.error("Inquiry submission error:", err);
+    } finally {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -197,6 +222,15 @@ export default function RfqInquiryForm({ specData }: RfqInquiryFormProps) {
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                         <div className="flex flex-col gap-1">
+                          <label className="font-label-tech-sm text-label-tech-sm text-on-surface-variant">WhatsApp / Contact Phone *</label>
+                          <input
+                            className="w-full bg-surface px-space-md py-2.5 rounded text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container border border-outline-variant/40 transition-all"
+                            placeholder="+62 812-3456-7890 or +971 50 123 4567"
+                            required type="tel"
+                            value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)}
+                          />
+                        </div>
+                        <div className="flex flex-col gap-1">
                           <label className="font-label-tech-sm text-label-tech-sm text-on-surface-variant">Destination Country &amp; Port *</label>
                           <input
                             className="w-full bg-surface px-space-md py-2.5 rounded text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container border border-outline-variant/40 transition-all"
@@ -205,6 +239,8 @@ export default function RfqInquiryForm({ specData }: RfqInquiryFormProps) {
                             value={destination} onChange={(e) => setDestination(e.target.value)}
                           />
                         </div>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                         <div className="flex flex-col gap-1">
                           <label className="font-label-tech-sm text-label-tech-sm text-on-surface-variant">Product Grade Needed *</label>
                           <select className="w-full bg-surface px-space-md py-2.5 rounded text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container border border-outline-variant/40 transition-all cursor-pointer" value={productGrade} onChange={(e) => setProductGrade(e.target.value)}>
@@ -217,8 +253,6 @@ export default function RfqInquiryForm({ specData }: RfqInquiryFormProps) {
                             <option value="sample-kit">Request Free 1-2kg Sample Test Kit</option>
                           </select>
                         </div>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
                         <div className="flex flex-col gap-1">
                           <label className="font-label-tech-sm text-label-tech-sm text-on-surface-variant">Target Volume *</label>
                           <select className="w-full bg-surface px-space-md py-2.5 rounded text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container border border-outline-variant/40 transition-all cursor-pointer" value={volume} onChange={(e) => setVolume(e.target.value)}>
@@ -229,6 +263,8 @@ export default function RfqInquiryForm({ specData }: RfqInquiryFormProps) {
                             <option value="sample">1-2kg Express Sample Box Only</option>
                           </select>
                         </div>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                         <div className="flex flex-col gap-1">
                           <label className="font-label-tech-sm text-label-tech-sm text-on-surface-variant">Packaging Preference</label>
                           <select className="w-full bg-surface px-space-md py-2.5 rounded text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container border border-outline-variant/40 transition-all cursor-pointer" value={packaging} onChange={(e) => setPackaging(e.target.value)}>
@@ -257,19 +293,31 @@ export default function RfqInquiryForm({ specData }: RfqInquiryFormProps) {
                         />
                       </div>
                       <motion.button
-                        className="w-full py-space-md rounded-lg bg-primary-container text-on-surface font-headline-sm text-headline-sm text-base font-bold shadow-xl flex items-center justify-center gap-space-xs cursor-pointer"
+                        className="w-full py-space-md rounded-lg bg-primary-container text-on-surface font-headline-sm text-headline-sm text-base font-bold shadow-xl flex items-center justify-center gap-space-xs cursor-pointer disabled:opacity-50"
                         type="submit"
+                        disabled={isSubmitting}
                         whileHover={{ scale: 1.02, boxShadow: "0 12px 30px -6px rgba(249,115,22,0.5)" }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <span>Submit Export Inquiry &amp; Calculate Freight</span>
-                        <motion.span
-                          className="material-symbols-outlined text-[20px]"
-                          animate={{ x: [0, 4, 0] }}
-                          transition={{ duration: 1.2, repeat: Infinity }}
-                        >
-                          send
-                        </motion.span>
+                        {isSubmitting ? (
+                          <>
+                            <span className="material-symbols-outlined text-[20px] animate-spin">
+                              progress_activity
+                            </span>
+                            <span>Recording Export Inquiry...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Submit Export Inquiry &amp; Calculate Freight</span>
+                            <motion.span
+                              className="material-symbols-outlined text-[20px]"
+                              animate={{ x: [0, 4, 0] }}
+                              transition={{ duration: 1.2, repeat: Infinity }}
+                            >
+                              send
+                            </motion.span>
+                          </>
+                        )}
                       </motion.button>
                     </motion.form>
                   )}

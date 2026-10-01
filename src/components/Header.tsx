@@ -87,6 +87,15 @@ export default function Header() {
               <span className="material-symbols-outlined text-[13px] text-primary">call</span>
               <span>+62 811-CHARCOAL</span>
             </a>
+            <span className="text-outline/40">|</span>
+            <Link
+              href="/admin/login"
+              className="hover:text-primary transition-colors flex items-center gap-1 font-semibold text-primary"
+              title="Portal Admin"
+            >
+              <span className="material-symbols-outlined text-[14px]">lock</span>
+              <span>Admin</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -271,6 +280,15 @@ export default function Header() {
                     +62 811-CHARCOAL
                   </a>
                 </div>
+
+                <Link
+                  href="/admin/login"
+                  onClick={handleLinkClick}
+                  className="flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-surface-container/60 hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[16px] text-primary">admin_panel_settings</span>
+                  <span>Portal Admin (Kelola Produk)</span>
+                </Link>
               </div>
             </motion.div>
           </>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Reveal, StaggerReveal, StaggerItem } from "./animations";
 
@@ -142,7 +143,7 @@ export default function Footer() {
               <span>© 2025 PT Nusantara Ember Indonesia. All rights reserved.</span>
               <span>Incoterms® 2020 Compliant (FOB / CIF / CFR)</span>
             </div>
-            <div className="flex items-center gap-space-lg">
+            <div className="flex items-center gap-space-md sm:gap-space-lg flex-wrap">
               {["Terms of Ocean Freight & Trade", "Data Privacy", "Self-Heating Maritime Declarations"].map((l) => (
                 <motion.a
                   key={l} href="#"
@@ -152,6 +153,15 @@ export default function Footer() {
                   {l}
                 </motion.a>
               ))}
+              <span className="text-outline/30">|</span>
+              <Link
+                href="/admin/login"
+                className="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-semibold"
+                title="Portal Admin Nusantara Ember"
+              >
+                <span className="material-symbols-outlined text-[15px] text-primary">admin_panel_settings</span>
+                <span>Admin Portal</span>
+              </Link>
             </div>
           </div>
         </Reveal>

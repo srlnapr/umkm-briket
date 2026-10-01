@@ -1,0 +1,171 @@
+{
+  "admin": {
+    "id": "admin-1",
+    "username": "admin",
+    "email": "admin@nusantaraember.com",
+    "name": "Owner PT Nusantara Ember",
+    "passwordHash": "$2b$10$GjqpCHIv3JsXXuh/0K.pl.bWAD/hFC5LRG5s2bARelpXTENEOouAK",
+    "updatedAt": "2026-10-01T15:11:08.535Z"
+  },
+  "products": [
+    {
+      "id": "prod-shisha-grade-a",
+      "name": "Platinum Coconut Cube",
+      "category": "GRADE A - SHISHA",
+      "description": "Engineered specifically for premium hookah & shisha lounges. Zero sulfur, odorless, and yields snow-white residue.",
+      "price": "$1,350 - $1,450 / MT",
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAa59vk1qxWreQIBGr8AbG0Jy4vBF_DySc-jHacz4qBKFcdWa3hcNm5lkDbhg7KaRIDYonrPeL8xnOeU7Ms54dAQ9v0QUYx86-6fnmPT5gDevfUx6RTbTQJ3H6wFfjL_wD7WgOUTq9m6YpG2OctH1dcWin1wPGJBSBIzDDNLJ2QANvURy1UzNphJFq9nfBQ4gO8YlLr922ZmAyq5WW9iJiTY0sb-UOQUfdxT43OTGXHhBXGPJqxNhsI",
+      "isActive": true,
+      "moq": "1x20ft FCL",
+      "badge": "GRADE A - SHISHA",
+      "badgeColor": "primary",
+      "specs": [
+        {
+          "label": "Available Cuts",
+          "value": "25x25x25mm / 26x26x26mm / 22mm",
+          "color": "text-on-surface"
+        },
+        {
+          "label": "Ash Content",
+          "value": "< 2.0% (Clean White)",
+          "color": "text-secondary"
+        },
+        {
+          "label": "Calorific Energy",
+          "value": "7,600 kcal/kg",
+          "color": "text-primary"
+        },
+        {
+          "label": "Burning Duration",
+          "value": "150+ minutes",
+          "color": "text-on-surface"
+        }
+      ],
+      "createdAt": "2026-10-01T15:11:08.535Z",
+      "updatedAt": "2026-10-01T15:11:08.535Z"
+    },
+    {
+      "id": "prod-bbq-grade-b",
+      "name": "Hexagonal & Pillow Briquettes",
+      "category": "GRADE B - BBQ & GRILL",
+      "description": "Heavyweight high-density extrusion with inner airflow channel. Steady high-temperature sustained radiation for commercial steakhouses.",
+      "price": "$950 - $1,050 / MT",
+      "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop",
+      "isActive": true,
+      "moq": "1x20ft FCL",
+      "badge": "GRADE B - BBQ & GRILL",
+      "badgeColor": "tertiary",
+      "specs": [
+        {
+          "label": "Available Cuts",
+          "value": "Hex 50x100mm, 50x150mm / Pillow",
+          "color": "text-on-surface"
+        },
+        {
+          "label": "Ash Content",
+          "value": "3.5% – 5.5% (Light Grey)",
+          "color": "text-on-surface"
+        },
+        {
+          "label": "Calorific Energy",
+          "value": "7,200 kcal/kg",
+          "color": "text-primary"
+        },
+        {
+          "label": "Burning Duration",
+          "value": "4.0 – 5.5 hours steady",
+          "color": "text-on-surface"
+        }
+      ],
+      "createdAt": "2026-10-01T15:11:08.535Z",
+      "updatedAt": "2026-10-01T15:11:08.535Z"
+    },
+    {
+      "id": "prod-industrial-grade-c",
+      "name": "Granular Carbon Precursor",
+      "category": "GRADE C - INDUSTRIAL",
+      "description": "Natural coconut shell crushed charcoal for water filtration, gold recovery metallurgy, and air purification production.",
+      "price": "$780 - $850 / MT",
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
+      "isActive": true,
+      "moq": "1x40ft HC",
+      "badge": "GRADE C - INDUSTRIAL",
+      "badgeColor": "secondary",
+      "specs": [
+        {
+          "label": "Granulation Sizes",
+          "value": "Mesh 3x6, 4x8, 8x30, Raw Crushed",
+          "color": "text-on-surface"
+        },
+        {
+          "label": "Fixed Carbon",
+          "value": "> 78%",
+          "color": "text-on-surface"
+        },
+        {
+          "label": "Moisture Content",
+          "value": "< 8.0%",
+          "color": "text-on-surface"
+        },
+        {
+          "label": "Packing Method",
+          "value": "500kg Jumbo Bag / 25kg PP",
+          "color": "text-on-surface"
+        }
+      ],
+      "createdAt": "2026-10-01T15:11:08.535Z",
+      "updatedAt": "2026-10-01T15:11:08.535Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-101",
+      "name": "Tariq Al-Mansoor",
+      "email": "tariq@almansoor-trading.ae",
+      "whatsapp": "+971501234567",
+      "message": "Looking for monthly contract of 2x40ft HC containers of Grade A Shisha Cubes 25x25mm for Dubai distributor warehouse. Please send FOB Semarang quotation & Sucofindo COA.",
+      "destination": "Jebel Ali, UAE",
+      "productGrade": "Grade A - Shisha Cube 25mm",
+      "volume": "2x 40ft HC Monthly",
+      "packaging": "1kg Inner OEM Box + 10kg Master Carton",
+      "incoterm": "FOB Semarang",
+      "isRead": false,
+      "createdAt": "2026-10-01T11:11:08.535Z"
+    },
+    {
+      "id": "msg-102",
+      "name": "Dmitry Volkov",
+      "email": "dmitry@volkov-lounge.ru",
+      "whatsapp": "+79031234567",
+      "message": "Need 1x20ft FCL test order of Platinum Cube 26x26mm. Target ash under 2.0% white ash. Requesting sample kit 2kg to Moscow before signing PO.",
+      "destination": "Saint Petersburg, Russia",
+      "productGrade": "Grade A - Shisha Cube 26mm",
+      "volume": "1x 20ft FCL",
+      "packaging": "Custom Brand OEM 1kg",
+      "incoterm": "CIF Saint Petersburg",
+      "isRead": true,
+      "createdAt": "2026-09-30T15:11:08.535Z"
+    },
+    {
+      "id": "msg-103",
+      "name": "Budi Santoso",
+      "email": "budi@restogriffindonesia.com",
+      "whatsapp": "+6281298765432",
+      "message": "Halo PT Nusantara Ember, kami butuh supply rutin briket Grade B bentuk hexagonal untuk jaringan restoran BBQ & grill di Jabodetabek 5 ton per bulan.",
+      "destination": "Jakarta & Surabaya",
+      "productGrade": "Grade B - BBQ Hexagonal",
+      "volume": "5 Ton / Bulan",
+      "packaging": "Karung 20kg",
+      "incoterm": "Lokal / Gudang",
+      "isRead": true,
+      "createdAt": "2026-09-29T15:11:08.535Z"
+    }
+  ],
+  "settings": {
+    "companyName": "PT Nusantara Ember Indonesia",
+    "contactEmail": "sales@nusantaraember.com",
+    "whatsappNumber": "+628112427262",
+    "address": "Cyber 2 Tower Level 28, HR Rasuna Said, Jakarta Selatan / Kiln Kendal Industrial Park",
+    "websiteTitle": "PT Nusantara Ember Indonesia | Premium Coconut Shell Charcoal Exporter"
+  }
+}

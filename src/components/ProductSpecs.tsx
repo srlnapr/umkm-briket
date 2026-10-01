@@ -1,10 +1,102 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Reveal, StaggerReveal, StaggerItem } from "./animations";
 
+interface ProductSpecItem {
+  label: string;
+  value: string;
+  color?: string;
+}
+
+interface ProductItem {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  price?: string;
+  image: string;
+  isActive: boolean;
+  moq?: string;
+  specs?: ProductSpecItem[];
+}
+
+const DEFAULT_PRODUCTS: ProductItem[] = [
+  {
+    id: "prod-shisha-grade-a",
+    name: "Platinum Coconut Cube",
+    category: "GRADE A - SHISHA",
+    description:
+      "Engineered specifically for premium hookah & shisha lounges. Zero sulfur, odorless, and yields snow-white residue.",
+    price: "$1,350 - $1,450 / MT",
+    image: "",
+    isActive: true,
+    moq: "1x20ft FCL",
+    specs: [
+      { label: "Available Cuts", value: "25x25x25mm / 26x26x26mm / 22mm", color: "text-on-surface" },
+      { label: "Ash Content", value: "< 2.0% (Clean White)", color: "text-secondary" },
+      { label: "Calorific Energy", value: "7,600 kcal/kg", color: "text-primary" },
+      { label: "Burning Duration", value: "150+ minutes", color: "text-on-surface" },
+    ],
+  },
+  {
+    id: "prod-bbq-grade-b",
+    name: "Hexagonal & Pillow Briquettes",
+    category: "GRADE B - BBQ & GRILL",
+    description:
+      "Heavyweight high-density extrusion with inner airflow channel. Steady high-temperature sustained radiation for commercial steakhouses.",
+    price: "$950 - $1,050 / MT",
+    image: "",
+    isActive: true,
+    moq: "1x20ft FCL",
+    specs: [
+      { label: "Available Cuts", value: "Hex 50x100mm, 50x150mm / Pillow", color: "text-on-surface" },
+      { label: "Ash Content", value: "3.5% – 5.5% (Light Grey)", color: "text-on-surface" },
+      { label: "Calorific Energy", value: "7,200 kcal/kg", color: "text-primary" },
+      { label: "Burning Duration", value: "4.0 – 5.5 hours steady", color: "text-on-surface" },
+    ],
+  },
+  {
+    id: "prod-industrial-grade-c",
+    name: "Granular Carbon Precursor",
+    category: "GRADE C - INDUSTRIAL",
+    description:
+      "Natural coconut shell crushed charcoal for water filtration, gold recovery metallurgy, and air purification production.",
+    price: "$780 - $850 / MT",
+    image: "",
+    isActive: true,
+    moq: "1x40ft HC",
+    specs: [
+      { label: "Granulation Sizes", value: "Mesh 3x6, 4x8, 8x30, Raw Crushed", color: "text-on-surface" },
+      { label: "Fixed Carbon", value: "> 78%", color: "text-on-surface" },
+      { label: "Moisture Content", value: "< 8.0%", color: "text-on-surface" },
+      { label: "Packing Method", value: "500kg Jumbo Bag / 25kg PP", color: "text-on-surface" },
+    ],
+  },
+];
+
 export default function ProductSpecs() {
+  const [products, setProducts] = useState<ProductItem[]>(DEFAULT_PRODUCTS);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+            setProducts(data.products);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
   return (
     <section
       className="w-full bg-surface-container-lowest py-space-2xl"
@@ -35,136 +127,115 @@ export default function ProductSpecs() {
           </div>
         </Reveal>
 
-        {/* 3 Flagship Products Bento */}
-        <StaggerReveal className="grid grid-cols-1 lg:grid-cols-3 gap-gutter-lg mb-space-2xl" stagger={0.12}>
-          {/* Grade A */}
-          <StaggerItem variant="fadeUp">
-            <motion.div
-              className="bg-surface-container rounded-2xl p-space-xl flex flex-col justify-between border border-outline-variant/30 h-full"
-              whileHover={{ y: -6, borderColor: "rgba(249,115,22,0.6)", boxShadow: "0 20px 40px -8px rgba(0,0,0,0.4)", transition: { duration: 0.25 } }}
-            >
-              <div>
-                <div className="flex items-center justify-between mb-space-md">
-                  <span className="px-space-md py-1 rounded-full bg-primary-container/20 text-primary-container font-label-tech-sm text-label-tech-sm font-bold border border-primary-container/30">
-                    GRADE A - SHISHA
-                  </span>
-                  <span className="font-label-tech-sm text-label-tech-sm text-outline">MOQ: 1x20ft FCL</span>
-                </div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">Platinum Coconut Cube</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs mb-space-md">
-                  Engineered specifically for premium hookah &amp; shisha lounges. Zero sulfur,
-                  odorless, and yields snow-white residue.
-                </p>
-                <div className="space-y-space-xs text-sm">
-                  {[
-                    { label: "Available Cuts", value: "25x25x25mm / 26x26x26mm / 22mm", color: "text-on-surface" },
-                    { label: "Ash Content", value: "< 2.0% (Clean White)", color: "text-secondary" },
-                    { label: "Calorific Energy", value: "7,600 kcal/kg", color: "text-primary" },
-                    { label: "Burning Duration", value: "150+ minutes", color: "text-on-surface" },
-                  ].map((row) => (
-                    <div key={row.label} className="flex justify-between py-1 bg-surface-container-high px-space-sm rounded">
-                      <span className="text-on-surface-variant">{row.label}</span>
-                      <span className={`font-headline-sm text-headline-sm text-sm ${row.color}`}>{row.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <motion.a
-                className="mt-space-lg w-full text-center py-2.5 rounded bg-surface-container-highest font-label-tech-lg text-label-tech-lg text-on-surface block"
-                href="#rfq-inquiry"
-                whileHover={{ backgroundColor: "rgb(249,115,22)", color: "#fff" }}
-                transition={{ duration: 0.2 }}
-              >
-                Inquire Shisha Grade
-              </motion.a>
-            </motion.div>
-          </StaggerItem>
+        {/* Dynamic Products Grid from Database */}
+        <StaggerReveal
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter-lg mb-space-2xl"
+          stagger={0.12}
+        >
+          {products.map((product) => {
+            const isGradeA =
+              product.category.toUpperCase().includes("SHISHA") ||
+              product.category.toUpperCase().includes("GRADE A");
+            const isGradeB =
+              product.category.toUpperCase().includes("BBQ") ||
+              product.category.toUpperCase().includes("GRADE B");
+            const isGradeC =
+              product.category.toUpperCase().includes("INDUSTRIAL") ||
+              product.category.toUpperCase().includes("GRADE C");
 
-          {/* Grade B */}
-          <StaggerItem variant="fadeUp">
-            <motion.div
-              className="bg-surface-container rounded-2xl p-space-xl flex flex-col justify-between border border-outline-variant/30 h-full"
-              whileHover={{ y: -6, borderColor: "rgba(185,200,222,0.6)", boxShadow: "0 20px 40px -8px rgba(0,0,0,0.4)", transition: { duration: 0.25 } }}
-            >
-              <div>
-                <div className="flex items-center justify-between mb-space-md">
-                  <span className="px-space-md py-1 rounded-full bg-tertiary-container/30 text-tertiary font-label-tech-sm text-label-tech-sm font-bold border border-tertiary/30">
-                    GRADE B - BBQ &amp; GRILL
-                  </span>
-                  <span className="font-label-tech-sm text-label-tech-sm text-outline">MOQ: 1x20ft FCL</span>
-                </div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">Hexagonal &amp; Pillow Briquettes</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs mb-space-md">
-                  Heavyweight high-density extrusion with inner airflow channel. Steady
-                  high-temperature sustained radiation for commercial steakhouses.
-                </p>
-                <div className="space-y-space-xs text-sm">
-                  {[
-                    { label: "Available Cuts", value: "Hex 50x100mm, 50x150mm / Pillow", color: "text-on-surface" },
-                    { label: "Ash Content", value: "3.5% – 5.5% (Light Grey)", color: "text-on-surface" },
-                    { label: "Calorific Energy", value: "7,200 kcal/kg", color: "text-primary" },
-                    { label: "Burning Duration", value: "4.0 – 5.5 hours steady", color: "text-on-surface" },
-                  ].map((row) => (
-                    <div key={row.label} className="flex justify-between py-1 bg-surface-container-high px-space-sm rounded">
-                      <span className="text-on-surface-variant">{row.label}</span>
-                      <span className={`font-headline-sm text-headline-sm text-sm ${row.color}`}>{row.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <motion.a
-                className="mt-space-lg w-full text-center py-2.5 rounded bg-surface-container-highest font-label-tech-lg text-label-tech-lg text-on-surface block"
-                href="#rfq-inquiry"
-                whileHover={{ backgroundColor: "rgb(249,115,22)", color: "#fff" }}
-                transition={{ duration: 0.2 }}
-              >
-                Inquire BBQ Grade
-              </motion.a>
-            </motion.div>
-          </StaggerItem>
+            const badgeBg = isGradeA
+              ? "bg-primary-container/20 text-primary-container border-primary-container/30"
+              : isGradeB
+              ? "bg-tertiary-container/30 text-tertiary border-tertiary/30"
+              : isGradeC
+              ? "bg-secondary-container/30 text-secondary border-secondary/30"
+              : "bg-surface-container text-on-surface border-outline/30";
 
-          {/* Grade C */}
-          <StaggerItem variant="fadeUp">
-            <motion.div
-              className="bg-surface-container rounded-2xl p-space-xl flex flex-col justify-between border border-outline-variant/30 h-full"
-              whileHover={{ y: -6, borderColor: "rgba(121,219,141,0.6)", boxShadow: "0 20px 40px -8px rgba(0,0,0,0.4)", transition: { duration: 0.25 } }}
-            >
-              <div>
-                <div className="flex items-center justify-between mb-space-md">
-                  <span className="px-space-md py-1 rounded-full bg-secondary-container/30 text-secondary font-label-tech-sm text-label-tech-sm font-bold border border-secondary/30">
-                    GRADE C - INDUSTRIAL
-                  </span>
-                  <span className="font-label-tech-sm text-label-tech-sm text-outline">MOQ: 1x40ft HC</span>
-                </div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">Granular Carbon Precursor</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs mb-space-md">
-                  Natural coconut shell crushed charcoal for water filtration, gold recovery
-                  metallurgy, and air purification production.
-                </p>
-                <div className="space-y-space-xs text-sm">
-                  {[
-                    { label: "Granulation Sizes", value: "Mesh 3x6, 4x8, 8x30, Raw Crushed", color: "text-on-surface" },
-                    { label: "Fixed Carbon", value: "> 78%", color: "text-on-surface" },
-                    { label: "Moisture Content", value: "< 8.0%", color: "text-on-surface" },
-                    { label: "Packing Method", value: "500kg Jumbo Bag / 25kg PP", color: "text-on-surface" },
-                  ].map((row) => (
-                    <div key={row.label} className="flex justify-between py-1 bg-surface-container-high px-space-sm rounded">
-                      <span className="text-on-surface-variant">{row.label}</span>
-                      <span className={`font-headline-sm text-headline-sm text-sm ${row.color}`}>{row.value}</span>
+            const hoverBorder = isGradeA
+              ? "rgba(249,115,22,0.6)"
+              : isGradeB
+              ? "rgba(185,200,222,0.6)"
+              : isGradeC
+              ? "rgba(121,219,141,0.6)"
+              : "rgba(249,115,22,0.4)";
+
+            return (
+              <StaggerItem key={product.id} variant="fadeUp">
+                <motion.div
+                  className="bg-surface-container rounded-2xl p-space-xl flex flex-col justify-between border border-outline-variant/30 h-full relative overflow-hidden group"
+                  whileHover={{
+                    y: -6,
+                    borderColor: hoverBorder,
+                    boxShadow: "0 20px 40px -8px rgba(0,0,0,0.4)",
+                    transition: { duration: 0.25 },
+                  }}
+                >
+                  <div>
+                    {/* Category & MOQ Badges */}
+                    <div className="flex items-center justify-between mb-space-md flex-wrap gap-2">
+                      <span
+                        className={`px-space-md py-1 rounded-full font-label-tech-sm text-label-tech-sm font-bold border ${badgeBg}`}
+                      >
+                        {product.category}
+                      </span>
+                      <span className="font-label-tech-sm text-label-tech-sm text-outline">
+                        MOQ: {product.moq || "1x20ft FCL"}
+                      </span>
                     </div>
-                  ))}
-                </div>
-              </div>
-              <motion.a
-                className="mt-space-lg w-full text-center py-2.5 rounded bg-surface-container-highest font-label-tech-lg text-label-tech-lg text-on-surface block"
-                href="#rfq-inquiry"
-                whileHover={{ backgroundColor: "rgb(249,115,22)", color: "#fff" }}
-                transition={{ duration: 0.2 }}
-              >
-                Inquire Industrial Bulk
-              </motion.a>
-            </motion.div>
-          </StaggerItem>
+
+                    {/* Product Name & Description */}
+                    <h3 className="font-headline-md text-headline-md text-on-surface">
+                      {product.name}
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs mb-space-md">
+                      {product.description}
+                    </p>
+
+                    {/* Price if set */}
+                    {product.price && (
+                      <div className="mb-space-sm px-space-sm py-1.5 rounded-lg bg-surface-container-high/80 border border-outline-variant/20 flex items-center justify-between text-xs">
+                        <span className="text-outline font-label-tech-sm uppercase">Indicative FOB Price:</span>
+                        <span className="font-headline-sm text-headline-sm text-primary font-bold">
+                          {product.price}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Technical Specifications Matrix Mini-table */}
+                    {product.specs && product.specs.length > 0 && (
+                      <div className="space-y-space-xs text-sm">
+                        {product.specs.map((row) => (
+                          <div
+                            key={row.label}
+                            className="flex justify-between py-1 bg-surface-container-high px-space-sm rounded"
+                          >
+                            <span className="text-on-surface-variant text-xs">{row.label}</span>
+                            <span
+                              className={`font-headline-sm text-headline-sm text-xs font-semibold ${
+                                row.color || "text-on-surface"
+                              }`}
+                            >
+                              {row.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Inquiry CTA Button */}
+                  <motion.a
+                    className="mt-space-lg w-full text-center py-2.5 rounded bg-surface-container-highest font-label-tech-lg text-label-tech-lg text-on-surface block"
+                    href="#rfq-inquiry"
+                    whileHover={{ backgroundColor: "rgb(249,115,22)", color: "#fff" }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Inquire {product.name.split(" ")[0]} Grade
+                  </motion.a>
+                </motion.div>
+              </StaggerItem>
+            );
+          })}
         </StaggerReveal>
 
         {/* COA Comparison Table */}
